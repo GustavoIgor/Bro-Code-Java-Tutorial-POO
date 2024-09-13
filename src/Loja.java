@@ -11,4 +11,8 @@ public class Loja {
         this.nome = nome;
     }
 
+    public String toString(){
+        return this.nome + "\n" + this.endereco;
+    }
+
 }
