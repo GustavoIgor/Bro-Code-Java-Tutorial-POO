@@ -185,7 +185,7 @@ public class Main {
                     System.out.println("Insira o número da posição do cliente: ");
                     num1 = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.println("Cliente número " + clientes.get(num1).numerocliente + ", faça seu pedido");
+                    System.out.println("Cliente número " + clientes.get(num1).getNumerocliente() + ", faça seu pedido");
                     System.out.println("O cliente pediu um bolo normal (digite 1) ou recheado (digite 2)?");
                     escolha2 = scanner.nextInt();
                     scanner.nextLine();
@@ -193,9 +193,9 @@ public class Main {
                     num2 = scanner.nextInt();
                     scanner.nextLine();
                     if(escolha2 == 1){
-                        lojautilizada.lista.get(num2).comer(clientes.get(num1).nome);
+                        lojautilizada.lista.get(num2).comer(clientes.get(num1).getNome());
                     }else{
-                        lojautilizada.listaRecheado.get(num2).comer(clientes.get(num1).nome);
+                        lojautilizada.listaRecheado.get(num2).comer(clientes.get(num1).getNome());
 
                     }
                     escolha = 1;

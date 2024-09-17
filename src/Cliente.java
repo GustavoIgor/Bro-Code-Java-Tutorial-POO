@@ -1,11 +1,20 @@
 public class Cliente extends Pessoa{
-    int numerocliente;
-    static int numero;
+    private int numerocliente;
+    private static int numero;
 
     Cliente(String nome, int idade) {
         super(nome, idade);
         numero++;
-        this.numerocliente = numero;
+        setNumerocliente(numero);
     }
+
+    public int getNumerocliente() {
+        return numerocliente;
+    }
+
+    public void setNumerocliente(int numerocliente) {
+        this.numerocliente = numerocliente;
+    }
+
 
 }
