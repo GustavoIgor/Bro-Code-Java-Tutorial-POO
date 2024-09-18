@@ -103,13 +103,13 @@ public class Main {
                     sabor = scanner.nextLine();
                     System.out.println("Insira o preço: ");
                     preco = scanner.nextDouble();
-                    //scanner.nextLine();
+                    scanner.nextLine();
                     if (escolha2 == 1){
                         lojautilizada.lista.add(new Bolo(sabor, preco));
                     }else {
                         System.out.println("Insira o recheio: ");
                         recheio = scanner.nextLine();
-                        lojautilizada.listaRecheado.add(new BoloRecheado(sabor, preco, recheio));
+                        lojautilizada.lista.add(new BoloRecheado(sabor, preco, recheio));
                     }
                     escolha = 1;
                     break;
@@ -124,28 +124,17 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("O número total de bolos feitos é " + Bolo.bolosfeitos + ".");
-                    System.out.println("Os bolos normais são: \n");
+                    System.out.println("Os bolos são: \n");
                     for (i = 0; i < lojautilizada.lista.size(); i++){
                         System.out.println(lojautilizada.lista.get(i));
-                    }
-                    System.out.println("Os bolos recheados são: \n");
-                    for (i = 0; i < lojautilizada.listaRecheado.size(); i++){
-                        System.out.println(lojautilizada.listaRecheado.get(i));
                     }
                     escolha = 1;
                     break;
                 case 5:
-                    System.out.println("Você deseja ver um bolo normal (digite 1) ou recheado (digite 2)?");
-                    escolha2 = scanner.nextInt();
-                    scanner.nextLine();
                     System.out.println("Insira a posição do bolo desejado: ");
                     num1 = scanner.nextInt();
                     scanner.nextLine();
-                    if(escolha2 == 1){
                         System.out.println(lojautilizada.lista.get(num1));
-                    }else{
-                        System.out.println(lojautilizada.listaRecheado.get(num1));
-                    }
                     escolha = 1;
                     break;
                 case 6:
@@ -162,7 +151,7 @@ public class Main {
                     escolha = 1;
                     break;
                 case 8:
-                    if(clientes.isEmpty() || (lojautilizada.lista.isEmpty() && lojautilizada.listaRecheado.isEmpty())){
+                    if(clientes.isEmpty() || lojautilizada.lista.isEmpty()){
                         System.out.println("Você não tem bolos ou/e clientes na loja!");
                         escolha = 1;
                         break;
@@ -171,18 +160,10 @@ public class Main {
                     num1 = scanner.nextInt();
                     scanner.nextLine();
                     System.out.println("Cliente número " + clientes.get(num1).getNumerocliente() + ", faça seu pedido");
-                    System.out.println("O cliente pediu um bolo normal (digite 1) ou recheado (digite 2)?");
-                    escolha2 = scanner.nextInt();
-                    scanner.nextLine();
                     System.out.println("Insira a posição do bolo: ");
                     num2 = scanner.nextInt();
                     scanner.nextLine();
-                    if(escolha2 == 1){
-                        lojautilizada.lista.get(num2).comer(clientes.get(num1).getNome());
-                    }else{
-                        lojautilizada.listaRecheado.get(num2).comer(clientes.get(num1).getNome());
-
-                    }
+                    lojautilizada.lista.get(num2).comer(clientes.get(num1).getNome());
                     escolha = 1;
                     break;
                 default:
@@ -191,7 +172,5 @@ public class Main {
                     break;
             }
         }
-
-        
     }
 }
