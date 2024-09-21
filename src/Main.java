@@ -8,7 +8,7 @@ public class Main {
      */
     public static void main(String[] args) {
         String nomeusu, nome, endereco, sabor, recheio;
-        int i, escolha, escolha2, num1 = 0, num2, idade;
+        int i, escolha = 0, escolha2, num1, num2, idade;
         double preco;
         Loja lojautilizada = null;
         ArrayList<Loja> listaLojas = new ArrayList<>();
@@ -18,15 +18,21 @@ public class Main {
         System.out.println("Bom dia, insira seu nome: ");
         nomeusu = scanner.nextLine();
         while (lojautilizada == null){
-            System.out.println("Olá, "+ nomeusu + ". O que deseja fazer? Insira: \n" +
-                    "1 - Para ver as lojas disponíveis\n" +
-                    "2 - Para adicionar uma loja\n" +
-                    "3 - Para excluir uma loja\n" +
-                    "4 - atualizar uma loja\n" +
-                    "5 - escolher uma loja");
+            try{
+                System.out.println("Olá, "+ nomeusu + ". O que deseja fazer? Insira: \n" +
+                        "1 - Para ver as lojas disponíveis\n" +
+                        "2 - Para adicionar uma loja\n" +
+                        "3 - Para excluir uma loja\n" +
+                        "4 - atualizar uma loja\n" +
+                        "5 - escolher uma loja");
 
-            escolha = scanner.nextInt();
-            scanner.nextLine();
+                escolha = scanner.nextInt();
+                scanner.nextLine();
+            }
+            catch(InputMismatchException e) {
+                System.out.println("Não é um número");
+                scanner.nextLine();
+            }
 
             switch (escolha){
                 case 1:
@@ -45,8 +51,10 @@ public class Main {
                     try{
                         System.out.println("Insira qual posição do item que queres excluir: ");
                         num1 = scanner.nextInt();
-                    }catch(Exception e ){
-                        System.out.println("Erro");
+                    }catch(InputMismatchException e) {
+                        System.out.println("Não é um número");
+                        scanner.nextLine();
+                        break;
                     }
                     scanner.nextLine();
                     try{
@@ -75,7 +83,8 @@ public class Main {
                     try{
                         System.out.println("Quer mudar o nome (digite 1) ou o endereço (digite 2)?");
                         escolha2 = scanner.nextInt();
-                    }catch(InputMismatchException e){
+                    }
+                    catch(InputMismatchException e){
                         System.out.println("Não é um número");
                         scanner.nextLine();
                         break;
@@ -111,6 +120,34 @@ public class Main {
                     }
                     catch (IndexOutOfBoundsException e){
                         System.out.println("Erro - Fora do Array");
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                    }
+                    break;
+                default:
+                    System.out.println("Inseriu um número errado!");
+                    break;
+            }
+        }
+        escolha = 1;
+        while (escolha != -1){
+            switch (escolha) {
+                case 1:
+                    try{
+                        System.out.println("Você está administrando a loja " + lojautilizada.nome + ", ela fica no endereço " + lojautilizada.endereco + ".\n" +
+                                "Digite: \n" +
+                                "1 - continuar no menu\n" +
+                                "2 - Fazer um bolo\n" +
+                                "3 - Cadastrar um cliente\n" +
+                                "4 - Mostrar os bolos\n" +
+                                "5 - mostrar bolo específico\n" +
+                                "6 - Mostrar os clientes\n" +
+                                "7 - Mostrar cliente específico\n" +
+                                "8 - Atender cliente\n" +
+                                "-1 - sair");
+                        escolha = scanner.nextInt();
                         scanner.nextLine();
                     }
                     catch (InputMismatchException e) {
@@ -118,30 +155,16 @@ public class Main {
                         scanner.nextLine();
                     }
                     break;
-
-            }
-        }
-        escolha = 1;
-        while (escolha != -1){
-            switch (escolha) {
-                case 1:
-                    System.out.println("Você está administrando a loja " + lojautilizada.nome + ", ela fica no endereço " + lojautilizada.endereco + ".\n" +
-                            "Digite: \n" +
-                            "1 - continuar no menu\n" +
-                            "2 - Fazer um bolo\n" +
-                            "3 - Cadastrar um cliente\n" +
-                            "4 - Mostrar os bolos\n" +
-                            "5 - mostrar bolo específico\n" +
-                            "6 - Mostrar os clientes\n" +
-                            "7 - Mostrar cliente específico\n" +
-                            "8 - Atender cliente\n" +
-                            "-1 - sair");
-                    escolha = scanner.nextInt();
-                    scanner.nextLine();
-                    break;
                 case 2:
-                    System.out.println("é um bolo normal (digite 1) ou recheado (digite 2)?");
-                    escolha2 = scanner.nextInt();
+                    try{
+                        System.out.println("é um bolo normal (digite 1) ou recheado (digite 2)?");
+                        escolha2 = scanner.nextInt();
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                        break;
+                    }
                     scanner.nextLine();
                     System.out.println("Insira o sabor: ");
                     sabor = scanner.nextLine();
@@ -160,10 +183,16 @@ public class Main {
                 case 3:
                     System.out.println("Insira o nome do cliente: ");
                     nome = scanner.nextLine();
-                    System.out.println("Insira a idade do cliente: ");
-                    idade = scanner.nextInt();
-                    scanner.nextLine();
-                    clientes.add(new Cliente(nome, idade));
+                    try{
+                        System.out.println("Insira a idade do cliente: ");
+                        idade = scanner.nextInt();
+                        scanner.nextLine();
+                        clientes.add(new Cliente(nome, idade));
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número para a idade, por favor.");
+                        scanner.nextLine();
+                    }
                     escolha = 1;
                     break;
                 case 4:
@@ -175,10 +204,22 @@ public class Main {
                     escolha = 1;
                     break;
                 case 5:
-                    System.out.println("Insira a posição do bolo desejado: ");
-                    num1 = scanner.nextInt();
+                    try{
+                        System.out.println("Insira a posição do bolo desejado: ");
+                        num1 = scanner.nextInt();
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                        break;
+                    }
                     scanner.nextLine();
+                    try{
                         System.out.println(lojautilizada.lista.get(num1));
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Erro - Fora do Array");
+                    }
                     escolha = 1;
                     break;
                 case 6:
@@ -188,10 +229,23 @@ public class Main {
                     escolha = 1;
                     break;
                 case 7:
-                    System.out.println("Insira a posição do Cliente desejado: ");
-                    num1 = scanner.nextInt();
+                    try{
+                        System.out.println("Insira a posição do Cliente desejado: ");
+                        num1 = scanner.nextInt();
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                        escolha = 1;
+                        break;
+                    }
                     scanner.nextLine();
-                    System.out.println(clientes.get(num1));
+                    try{
+                        System.out.println(clientes.get(num1));
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Erro - Fora do Array");
+                    }
                     escolha = 1;
                     break;
                 case 8:
@@ -200,14 +254,42 @@ public class Main {
                         escolha = 1;
                         break;
                     }
-                    System.out.println("Insira o número da posição do cliente: ");
-                    num1 = scanner.nextInt();
+                    try{
+                        System.out.println("Insira o número da posição do cliente: ");
+                        num1 = scanner.nextInt();
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                        escolha = 1;
+                        break;
+                    }
                     scanner.nextLine();
-                    System.out.println("Cliente número " + clientes.get(num1).getNumerocliente() + ", faça seu pedido");
-                    System.out.println("Insira a posição do bolo: ");
-                    num2 = scanner.nextInt();
+                    try{
+                        System.out.println("Cliente número " + clientes.get(num1).getNumerocliente() + ", faça seu pedido");
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Erro - Fora do Array");
+                        escolha = 1;
+                        break;
+                    }
+                    try{
+                        System.out.println("Insira a posição do bolo: ");
+                        num2 = scanner.nextInt();
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                        escolha = 1;
+                        break;
+                    }
                     scanner.nextLine();
-                    lojautilizada.lista.get(num2).comer(clientes.get(num1).getNome());
+                    try{
+                        lojautilizada.lista.get(num2).comer(clientes.get(num1).getNome());
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Erro - Fora do Array");
+                    }
                     escolha = 1;
                     break;
                 default:
