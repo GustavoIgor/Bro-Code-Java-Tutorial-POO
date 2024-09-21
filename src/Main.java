@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,7 @@ public class Main {
      */
     public static void main(String[] args) {
         String nomeusu, nome, endereco, sabor, recheio;
-        int i, escolha, escolha2, num1, num2, idade;
+        int i, escolha, escolha2, num1 = 0, num2, idade;
         double preco;
         Loja lojautilizada = null;
         ArrayList<Loja> listaLojas = new ArrayList<>();
@@ -18,7 +19,7 @@ public class Main {
         nomeusu = scanner.nextLine();
         while (lojautilizada == null){
             System.out.println("Olá, "+ nomeusu + ". O que deseja fazer? Insira: \n" +
-                    "1 - Para ver as lojas disponíveis" +
+                    "1 - Para ver as lojas disponíveis\n" +
                     "2 - Para adicionar uma loja\n" +
                     "3 - Para excluir uma loja\n" +
                     "4 - atualizar uma loja\n" +
@@ -41,40 +42,83 @@ public class Main {
                     listaLojas.add(new Loja(endereco, nome));
                     break;
                 case 3:
-                    System.out.println("Insira qual posição do item que queres excluir: ");
-                    num1 = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.println("O item que queres deletar é o/a: " + listaLojas.get(num1) + ". Tem certeza disso? 1 - Sim | 2 - Não ");
-                    escolha2 = scanner.nextInt();
-                    scanner.nextLine();
-                    if (escolha2 == 1){
-                        listaLojas.remove(num1);
+                    try{
+                        System.out.println("Insira qual posição do item que queres excluir: ");
+                        num1 = scanner.nextInt();
+                    }catch(Exception e ){
+                        System.out.println("Erro");
                     }
+                    scanner.nextLine();
+                    try{
+                        System.out.println("O item que queres deletar é o/a: " + listaLojas.get(num1) + ". Tem certeza disso? 1 - Sim | 2 - Não ");
+                        escolha2 = scanner.nextInt();
+                        scanner.nextLine();
+                        if (escolha2 == 1){
+                            listaLojas.remove(num1);
+                        }
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("Fora do array");
+                    }
+
                     break;
                 case 4:
-                    System.out.println("Insira qual posição queres mudar: ");
-                    num1 = scanner.nextInt();
+                    try{
+                        System.out.println("Insira qual posição queres mudar: ");
+                        num1 = scanner.nextInt();
+                    }
+                    catch(InputMismatchException e){
+                        System.out.println("Não é um número");
+                        scanner.nextLine();
+                        break;
+                    }
                     scanner.nextLine();
-                    System.out.println("Quer mudar o nome (digite 1) ou o endereço (digite 2)?");
-                    escolha2 = scanner.nextInt();
-                    scanner.nextLine();
+                    try{
+                        System.out.println("Quer mudar o nome (digite 1) ou o endereço (digite 2)?");
+                        escolha2 = scanner.nextInt();
+                    }catch(InputMismatchException e){
+                        System.out.println("Não é um número");
+                        scanner.nextLine();
+                        break;
+                    }
                     scanner.nextLine();
                     if (escolha2 == 1){
-                        System.out.println("Insira o novo nome: ");
-                        nome = scanner.nextLine();
-                        listaLojas.get(num1).nome = nome;
+                        try{
+                            System.out.println("Insira o novo nome: ");
+                            nome = scanner.nextLine();
+                            listaLojas.get(num1).nome = nome;
+                        }
+                        catch (IndexOutOfBoundsException e){
+                            System.out.println("Fora do Array");
+                        }
                     }else{
-                        System.out.println("Insira o novo endereço: ");
-                        endereco = scanner.nextLine();
-                        listaLojas.get(num1).endereco = endereco;
+                        try{
+                            System.out.println("Insira o novo endereço: ");
+                            endereco = scanner.nextLine();
+                            listaLojas.get(num1).endereco = endereco;
+                        }
+                        catch (IndexOutOfBoundsException e){
+                            System.out.println("Fora do Array");
+                        }
                     }
 
                     break;
                 case 5:
-                    System.out.println("Qual posição da loja queres escolher?");
-                    num1 = scanner.nextInt();
-                    scanner.nextLine();
-                    lojautilizada = listaLojas.get(num1);
+                    try{
+                        System.out.println("Qual posição da loja queres escolher?");
+                        num1 = scanner.nextInt();
+                        scanner.nextLine();
+                        lojautilizada = listaLojas.get(num1);
+                    }
+                    catch (IndexOutOfBoundsException e){
+                        System.out.println("Erro - Fora do Array");
+                        scanner.nextLine();
+                    }
+                    catch (InputMismatchException e) {
+                        System.out.println("Digite um número, por favor.");
+                        scanner.nextLine();
+                    }
+                    break;
+
             }
         }
         escolha = 1;
