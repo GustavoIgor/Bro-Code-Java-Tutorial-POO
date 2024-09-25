@@ -18,3 +18,4 @@
 - Interface
 - Polimorfismo
 - Polimorfismo dinâmico
+- try/catch
